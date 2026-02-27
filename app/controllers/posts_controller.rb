@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:1d]) # 削除するPostを1つ取得
+    post = Post.find(params[:id]) # 削除するPostを1つ取得
     post.destroy # 削除
     redirect_to posts_path # 一覧ページに戻る
   end
