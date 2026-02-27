@@ -17,6 +17,17 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id]) # postから1つのidを取得
   end
 
+  def edit # 編集する
+    @post = Post.find(params[:id]) # postから1つの1dを取得
+  end
+
+  def update
+    post = Post.find(params[:id]) # 編集するpostを一つ取得
+    post.update(post_params) # パラメータが保存される
+    redirect_to post_path(post.id) # その後のページの行先設定
+  end
+
+
   private # データ送信の安全性担保のためのストロングパラメータ
   def post_params # post_paramsに入るデータを定義
     params.require(:post).permit(:location, :text)
