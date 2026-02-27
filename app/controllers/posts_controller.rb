@@ -27,6 +27,12 @@ class PostsController < ApplicationController
     redirect_to post_path(post.id) # その後のページの行先設定
   end
 
+  def destroy
+    post = Post.find(params[:1d]) # 削除するPostを1つ取得
+    post.destroy # 削除
+    redirect_to posts_path # 一覧ページに戻る
+  end
+
 
   private # データ送信の安全性担保のためのストロングパラメータ
   def post_params # post_paramsに入るデータを定義
