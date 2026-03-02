@@ -36,6 +36,6 @@ class PostsController < ApplicationController
 
   private # データ送信の安全性担保のためのストロングパラメータ
   def post_params # post_paramsに入るデータを定義
-    params.require(:post).permit(:location, :text)
+    params.require(:post).permit(:location, :text, :image)
   end
 end
