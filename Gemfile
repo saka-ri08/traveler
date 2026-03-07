@@ -65,4 +65,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2" # 画像加工用
+
+gem 'bootstrap', '~> 5.3.0' # デザイン用
+gem 'jquery-rails'
+
+gem "sassc-rails"
