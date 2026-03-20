@@ -73,6 +73,3 @@ gem 'bootstrap', '~> 5.3.0'
 gem 'jquery-rails'
 
 gem "sassc-rails"
-
-gem "sprockets-rails"
-gem "cssbundling-rails", "~> 1.4"
