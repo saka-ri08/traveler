@@ -9,7 +9,9 @@
     <%= link_to post_path(post) do %>
         <p class="caption">ユーザ名</p>
         <% if post.image.attached? %>
-         <% image_tag post.image.variant(resize_to_limit: [300, 200]) %><br>
+         <%= image_tag post.image, style: "width: 300px; height: 200px; object-fit:
+cover;" =%>
+<br>
         <% end %>
         <p class="caption"><%= post.location %></p>
     <% end %>
