@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   # データを保存、トップ画面に移動
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).reverse_order # 1ページ分だけポストを取得
   end
 
   def show
