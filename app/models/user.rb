@@ -3,4 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :posts, dependent: :destroy
+  # ユーザーが複数ポストを持つ(has_many :posts)
+  # ユーザーが削除されたら、紐づいているpostも削除する
 end
