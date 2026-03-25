@@ -17,9 +17,12 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.page(params[:page]).per(7).reverse_order
   end
   # findメソッドで1つのidを指定してデータを1つとってきて@postに入れる
-
+  # 1ページに7コメントまで表示、最新コメントを上に表示
+  
   def edit
     @post = Post.find(params[:id])
   end

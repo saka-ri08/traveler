@@ -1,0 +1,21 @@
+class CommentsController < ApplicationController
+    def create
+        post = Post.find(params[:post_id])
+        comment = current_user.comments.new(comment_params)
+        comment.post_id = post.id
+        comment.save
+        redirect_to post_path(post)
+    end
+    # post1つ→コメント作成、保存→詳細に戻る
+
+    def destroy
+        Comment.find_by(id: params[:id], post_id: params[:post_id]).destroy
+        redirect_to post_path(params[:post_id])
+    end
+    # commentをidやpost_idから見つけて削除→投稿詳細ページに戻る
+    
+    private
+    def comment_params
+        params.require(:comment).permit(:comment)
+    end
+end
