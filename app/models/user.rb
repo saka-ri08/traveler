@@ -8,4 +8,5 @@ class User < ApplicationRecord
   # ユーザーが複数ポストを持つ(has_many :posts)
   # ユーザーが削除されたら、紐づいているpostも削除する
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 end
