@@ -4,13 +4,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.user_id = current_user.id
-    post.save
-    redirect_to post_path(post.id)
+   @post = current_user.posts.new(post_params)
+
+   if @post.save
+      redirect_to @post
+    else
+     render :new
+    end
   end
-  # データ新規登録のため空のインスタンスを作成
-  # データを保存、トップ画面に移動
 
   def index
     @posts = Post.page(params[:page]).reverse_order # 1ページ分だけポストを取得
