@@ -9,4 +9,6 @@ class User < ApplicationRecord
   # ユーザーが削除されたら、紐づいているpostも削除する
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+
+  has_one_attached :profile_image
 end
