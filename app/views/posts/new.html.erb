@@ -1,6 +1,17 @@
 <div class="cover-new">
   <div class="container d-flex flex-column align-items-center">
     <div class="row mt-5">
+
+  <% if @post.errors.any? %>
+  <div style="color: red;">
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
       <h1 class="font-weight-normal">旅行新規投稿</h1>
     </div>
     <div class="row mt-5">

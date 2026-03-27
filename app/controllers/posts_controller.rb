@@ -3,15 +3,15 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def create
-   @post = current_user.posts.new(post_params)
+def create
+  @post = current_user.posts.build(post_params)
 
-   if @post.save
-      redirect_to @post
-    else
-     render :new
-    end
+  if @post.save
+    redirect_to post_path(@post)
+  else
+    render :new
   end
+end
 
   def index
     @posts = Post.page(params[:page]).reverse_order # 1ページ分だけポストを取得
