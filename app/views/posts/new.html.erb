@@ -3,12 +3,11 @@
     <div class="row mt-5">
 
   <% if @post.errors.any? %>
-  <div style="color: red;">
-    <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <div class="card text-center text-white bg-danger mt-3">
+    <%= @post.errors.count %>件のエラーが発生しました
+    <% @post.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
   </div>
 <% end %>
 

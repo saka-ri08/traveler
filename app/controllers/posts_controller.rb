@@ -4,12 +4,12 @@ class PostsController < ApplicationController
   end
 
 def create
-  @post = current_user.posts.build(post_params)
-
+  @post = Post.new(post_params)
+  @post.user_id = current_user.id
   if @post.save
-    redirect_to post_path(@post)
+    redirect_to post_path(@post.id)
   else
-    render :new
+    render :new, status: :unprocessable_entity
   end
 end
 
@@ -30,10 +30,13 @@ end
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post.id)
+  @post = Post.find(params[:id])
+  if @post.update(post_params)
+    redirect_to post_path(@post.id)
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
 
   def destroy
     post = Post.find(params[:id])
