@@ -9,25 +9,32 @@ class User < ApplicationRecord
   # ユーザーが削除されたら、紐づいているpostも削除する
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :following_user, through: :follower, source: :followed
-  has_many :follower_user, through: :followed, source: :follower
-  # followerテーブルからfollowedをソースとし、フォローしているユーザーリストを定義
-  # followedテーブルからfollowerをソースとし、フォローされているユーザーリストを定義
+
+  # フォローしている関係（自分 → 相手）
+  has_many :relationships, foreign_key: :follower_id, dependent: :destroy
+
+  # フォローされている関係（相手 → 自分）
+  has_many :reverse_relationships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
+  
+  # フォローしているユーザー一覧
+  has_many :following, through: :relationships, source: :followed
+
+  # フォロワー一覧
+  has_many :followers, through: :reverse_relationships, source: :follower
 
   has_one_attached :profile_image
 
   # ユーザーをフォローする
   def follow(user_id)
-    follower.create(followed_id: user_id)
+   relationships.create(followed_id: user_id)
   end
 
-  # ユーザーのフォローを外す
   def unfollow(user_id)
-    follower.find_by(followed_id: user_id).destroy
+   relationships.find_by(followed_id: user_id).destroy
   end
 
-  # フォローしていればtrueを返す
   def following?(user)
-    following_user.include?(user)
-  end 
+   following.include?(user)
+  end
+
 end
