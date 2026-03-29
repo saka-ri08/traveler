@@ -14,7 +14,9 @@ def create
 end
 
   def index
-    @posts = Post.page(params[:page]).reverse_order # 1ページ分だけポストを取得
+    @posts = Post.published.page(params[:page]).reverse_order
+    @posts = @posts.where('location LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    # whereで検索、LIKEはSQLの検索演算子、％％の中のものを取得
   end
 
   def show
@@ -44,9 +46,13 @@ end
     redirect_to posts_path
   end
 
+  def confirm
+   @posts = current_user.posts.draft.page(params[:page]).reverse_order
+  end
+
   private
   def post_params
-    params.require(:post).permit(:user_id, :location, :text, :image)
+    params.require(:post).permit(:user_id, :location, :text, :image, :status)
   end
   # post_paramsにはいるデータを定義するストロングパラメータ
 
