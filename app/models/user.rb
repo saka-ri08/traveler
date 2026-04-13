@@ -24,6 +24,8 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
+  has_many :watch_counts, dependent: :destroy
+
   # ユーザーをフォローする
   def follow(user_id)
    relationships.create(followed_id: user_id)

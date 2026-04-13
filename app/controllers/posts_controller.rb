@@ -21,6 +21,9 @@ end
 
   def show
     @post = Post.find(params[:id])
+        unless WatchCount.find_by(user_id: current_user.id, post_id: @post.id)
+         current_user.watch_counts.create(post_id: @post.id)
+        end
     @comment = Comment.new
     @comments = @post.comments.page(params[:page]).per(7).reverse_order
   end
