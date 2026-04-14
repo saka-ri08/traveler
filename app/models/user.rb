@@ -26,6 +26,9 @@ class User < ApplicationRecord
 
   has_many :watch_counts, dependent: :destroy
 
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
+
   # ユーザーをフォローする
   def follow(user_id)
    relationships.create(followed_id: user_id)

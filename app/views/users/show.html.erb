@@ -6,6 +6,19 @@
       <% else %>
       　<h1 class="font-weight-normal"><%= @user.name %>さんのページ</h1>
       <% end %>
+      .d-flex.justify-content-end.mt-4.me-4
+      .me-2
+        - unless @user.id == current_user.id 
+          - if @is_room == true 
+            = link_to  room_path(@room_id) do 
+              i.fa-regular.fa-envelope.message
+            
+          - else 
+            = form_for @room do |f|
+              = fields_for @entry do |e|
+                = e.number_field :user_id, value: @user.id, hidden: true
+              
+              = f.submit "チャットを始める", class: "message_link"
     </div>
     <% if user_signed_in? && @user == current_user %>
       <p class="d-flex align-self-end">
