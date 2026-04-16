@@ -16,7 +16,7 @@
   <div class="me-2">
     <% unless @user.id == current_user.id %>
       <% if @is_room == true %>
-        <%= link_to room_path(@room_id) do %>
+        <%= link_to user_room_path(@room_id) do %>
           <i class="fa-regular fa-envelope message"></i>
         <% end %>
       <% else %>

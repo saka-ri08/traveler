@@ -4,8 +4,8 @@ class RoomsController < ApplicationController
   def create
     @room = Room.create
     @current_entry = @room.entries.create(user_id: current_user.id)
-    @another_entry = @room.entries.create(user_id: params[:room][:entry][:user_id])
-    redirect_to room_path(@room)
+    @another_entry = @room.entries.create(user_id: params[:room][:entries][:user_id])
+    redirect_to user_room_path(current_user, @room)
   end
 
   def index
