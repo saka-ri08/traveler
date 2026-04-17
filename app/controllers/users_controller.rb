@@ -8,22 +8,24 @@ class UsersController < ApplicationController
   @posts = @user.posts.page(params[:page]).per(8).reverse_order
   @following_users = @user.following
   @follower_users = @user.followers
-  @current_entry = Entry.where(user_id: current_user.id)
-    @another_entry = Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
-      @current_entry.each do |current|
-        @another_entry.each do |another|
-          if current.room_id == another.room_id
-            @is_room = true
-            @room_id = current.room_id
-          end
-        end
-      end
-      unless @is_room
-        @room = Room.new
-        @entry = Entry.new
-      end
+
+  unless @user.id == current_user.id
+    @is_room = false
+    @room_id = nil
+
+    current_room_ids = current_user.entries.pluck(:room_id)
+    another_room_ids = @user.entries.pluck(:room_id)
+
+    common_room_ids = current_room_ids & another_room_ids
+
+    if common_room_ids.present?
+      @is_room = true
+      @room_id = common_room_ids.first
+    else
+      @room = Room.new
+      @entry = Entry.new
     end
+  end
 end
 
   def edit

@@ -2,10 +2,12 @@ class RoomsController < ApplicationController
      before_action :authenticate_user!
 
   def create
-    @room = Room.create
-    @current_entry = @room.entries.create(user_id: current_user.id)
-    @another_entry = @room.entries.create(user_id: params[:room][:entries][:user_id])
-    redirect_to user_room_path(current_user, @room)
+   @room = Room.create
+
+   @room.entries.create(user_id: current_user.id)
+   @room.entries.create(user_id: params[:room][:user_id])
+
+   redirect_to user_room_path(current_user, @room)
   end
 
   def index
