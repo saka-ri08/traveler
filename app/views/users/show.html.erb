@@ -16,8 +16,8 @@
   <div class="me-2">
     <% if user_signed_in? && @user != current_user %>
   <% if @is_room && @room_id.present? %>
-    <%= link_to user_room_path(@room_id) do %>
-      <i class="fa-regular fa-envelope message"></i>
+    <%= link_to user_room_path(@user.id, @room_id) do %>
+     <i class="fa-solid fa-envelope"></i>
     <% end %>
   <% else %>
     <%= form_with model: [@user, @room] do |f| %>
