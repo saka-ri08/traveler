@@ -38,7 +38,7 @@
   </div>
 
   <div class="chat-form-box p-3">
-    <%= form_for @message do |f| %>
+    <%= form_with model: [@user, @room] do |f| %>
       <div class="chat-form-group d-flex">
         <%= f.text_field :message, class: "form-control mr-2 flex-grow-1" %>
         <%= f.hidden_field :room_id, value: @room.id %>

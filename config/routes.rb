@@ -7,8 +7,12 @@ Rails.application.routes.draw do
     get :follows, :followers
   end
   resource :relationships, only: [:create, :destroy]
-  resources :messages, only: [:create]
-  resources :rooms, only: [:create, :index, :show]
+  resources :users do
+   resources :rooms, only: [:create, :index, :show]
+  end
+  resources :rooms do
+   resources :messages, only: [:create]
+  end
    end
    resources :posts do
    resources :comments, only:[:create, :destroy]
