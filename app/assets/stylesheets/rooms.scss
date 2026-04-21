@@ -1,0 +1,42 @@
+.cover-room-show {
+    height: 100%;
+    width: 100%;
+    background-image: url(/assets/mypage-scaled.jpg);
+    background-color: rgba(255, 255, 255, 0.4);
+    background-blend-mode: lighten;
+    background-size: 100% 100%;
+}
+
+.fukidasi {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.mycomment {
+  position: relative;
+  background: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  display: inline-block;   // ← これを追加
+  max-width: 70%;          // ← あると自然（任意）
+}
+
+.mycomment::after {
+  content: "";
+  position: absolute;
+  left: -8px;   // 少し内側に
+  top: 12px;
+  border: 8px solid transparent;
+  border-right-color: #eee;
+}
+
+.faceicon {
+  margin-right: 10px;
+}
+
+.message_icon_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

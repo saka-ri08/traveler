@@ -7,12 +7,6 @@ Rails.application.routes.draw do
     get :follows, :followers
   end
   resource :relationships, only: [:create, :destroy]
-  resources :users do
-   resources :rooms, only: [:create, :index, :show]
-  end
-  resources :rooms do
-   resources :messages, only: [:create]
-  end
    end
    resources :posts do
    resources :comments, only:[:create, :destroy]
@@ -21,6 +15,9 @@ Rails.application.routes.draw do
     get 'confirm'
   end
  end
+ resources :rooms, only: [:create, :show] do
+   resources :messages, only: [:create]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

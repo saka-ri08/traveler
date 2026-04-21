@@ -4,12 +4,14 @@ class RoomsController < ApplicationController
   def create
    @room = Room.create
 
-   @room.entries.create(user_id: current_user.id)
-   @room.entries.create(user_id: params[:room][:user_id])
+   # 自分
+   current_user.entries.create(room: @room)
 
-   redirect_to user_room_path(current_user, @room)
+   # 相手
+   User.find(params[:room][:user_id]).entries.create(room: @room)
+
+   redirect_to @room
   end
-
   def index
     my_room_id = current_user.entries.pluck(:room_id)
     @another_entries = Entry
@@ -29,5 +31,6 @@ class RoomsController < ApplicationController
     else
       redirect_back(fallback_location: root_path)
     end
+    @message = Message.new
   end
 end
